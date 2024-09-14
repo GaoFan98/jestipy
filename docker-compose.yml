@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: ["testy", "tests/"]  # This will allow running tests with a short command

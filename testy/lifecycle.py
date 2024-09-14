@@ -20,4 +20,4 @@ async def run_lifecycle_hooks(hook_name):
     hook = _lifecycle_hooks.get(hook_name)
     if hook:
         print(f"Running {hook_name} hook")
-        await run_with_timeout(hook, 5)  # Default 5-second timeout
+        await run_with_timeout(hook, 5) 

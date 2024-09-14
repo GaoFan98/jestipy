@@ -1,7 +1,6 @@
 import asyncio
 import time
 
-# Terminal symbols for visual output
 PASSED_SYMBOL = "✔"
 FAILED_SYMBOL = "✖"
 SKIPPED_SYMBOL = "➖"
@@ -25,29 +24,25 @@ _lifecycle_hooks = {
 test_results = []
 test_file_stats = []
 
-# Describe block for organizing test suites
 def describe(name, fn):
-    print(f"\n++++ {name} ++++")  # Visual block for descriptions
+    print(f"\n++++ {name} ++++")  
     fn()
 
-# Test registration functions
 def it(name, fn):
     _test_registry.append((name, fn))
 
 def test(name, fn):
     _test_registry.append((name, fn))
 
-# Expect function for assertions
 def expect(value):
     class Matcher:
         def toBe(self, expected):
             if value != expected:
                 raise AssertionError(f"{FAILED_SYMBOL} Expected {value} to be {expected}")
             else:
-                print(f"{PASSED_SYMBOL} {value} equals {expected}")  # Success visual
+                print(f"{PASSED_SYMBOL} {value} equals {expected}") 
     return Matcher()
 
-# Register skip, only, failing, and todo tests
 def test_skip(name, fn=None):
     print(f"{SKIPPED_SYMBOL} Skipped: {name}")
     _skipped_tests.append(name)
@@ -70,7 +65,6 @@ def test_todo(name):
     print(f"{TODO_SYMBOL} TODO: {name}")
     _todo_tests.append(name)
 
-# Register lifecycle hooks
 def beforeAll(fn):
     _lifecycle_hooks["beforeAll"] = fn
 
@@ -83,7 +77,6 @@ def beforeEach(fn):
 def afterEach(fn):
     _lifecycle_hooks["afterEach"] = fn
 
-# Register lifecycle methods for `test`
 test.beforeAll = beforeAll
 test.afterAll = afterAll
 test.beforeEach = beforeEach
@@ -93,10 +86,8 @@ test.skip = test_skip
 test.only = test_only
 test.todo = test_todo
 
-# Register concurrent tests
 test.concurrent = lambda name, fn, timeout=5: asyncio.wait_for(fn(), timeout)
 
-# Register parameterized tests
 def test_each(test, table):
     def decorator(name, fn):
         for params in table:
@@ -116,7 +107,6 @@ describe.each = lambda table: describe_each(describe, table)
 
 test.expect = expect
 
-# Run the test suite with terminal symbols and track statistics per test file
 async def run_tests():
     total_tests = len(_test_registry)
     passed_tests = 0
@@ -160,7 +150,6 @@ async def run_tests():
 
         await run_lifecycle_hooks("afterEach")
 
-        # Stats for each test file
         file_duration = time.time() - file_start_time
         print(f"\n--- Stats for {name} ---")
         print(f"Passed: {file_passed}, Failed: {file_failed}, Skipped: {file_skipped}, TODO: {file_todo}")
@@ -177,7 +166,6 @@ async def run_tests():
     print(f"{TODO_SYMBOL} TODO: {todo_tests}")
     print(f"Time for all tests: {time.time() - file_start_time:.2f}s")
 
-# Utility functions for lifecycle hooks
 async def run_with_timeout(fn, timeout):
     try:
         if asyncio.iscoroutinefunction(fn):
@@ -191,4 +179,4 @@ async def run_lifecycle_hooks(hook_name):
     hook = _lifecycle_hooks.get(hook_name)
     if hook:
         print(f"Running {hook_name} hook")
-        await run_with_timeout(hook, 5)  # Default 5-second timeout
+        await run_with_timeout(hook, 5)  

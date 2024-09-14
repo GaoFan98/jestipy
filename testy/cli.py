@@ -1,6 +1,6 @@
 import argparse
 import os
-import runpy  # To run Python files directly
+import runpy  
 import sys
 
 def run_tests_in_file(file_path):

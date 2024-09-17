@@ -1,17 +1,17 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="Testy",  
+    name="jestipy",  
     version="0.1.0",  
-    description="A Jest-like Python testing framework",  
+    description="A Jest-like testing framework for Python",  
     author="Vagif Aghayev",
     author_email="vagifaghayev270298@gmail.com",  
-    url="https://github.com/GaoFan98/testy",
+    url="https://github.com/GaoFan98/jestipy",
     packages=find_packages(),  
     include_package_data=True,  
     entry_points={  
         "console_scripts": [
-            "testy=testy.cli:run_cli",  
+            "jestipy=jestipy.cli:run_cli",  
         ]
     },
     classifiers=[

@@ -1,3 +1,3 @@
-from testy.core import test
+from jestipy.core import test
 
 test.todo("implement subtraction")

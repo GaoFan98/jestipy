@@ -1,4 +1,4 @@
-from testy.core import test, describe
+from jestipy.core import test, describe
 
 test.beforeAll(lambda: print("Running setup before all tests"))
 

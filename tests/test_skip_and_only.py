@@ -1,4 +1,4 @@
-from testy.core import test, describe
+from jestipy.core import test, describe
 
 describe("Skipped and Only Tests", lambda: [
     test.skip("skipped test", lambda: test.expect(1 + 1).toBe(3)),
